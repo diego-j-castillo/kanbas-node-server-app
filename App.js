@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(
   cors({
     credentials: true,
-    origin: [process.env.FRONTEND_URL, "https://a5--clinquant-scone-2a3136.netlify.app/", "https://a6--clinquant-scone-2a3136.netlify.app/"],
+    origin: [process.env.FRONTEND_URL, "https://a5--clinquant-scone-2a3136.netlify.app", "https://a6--clinquant-scone-2a3136.netlify.app"],
   })
 );
 const sessionOptions = {
