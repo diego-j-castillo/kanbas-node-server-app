@@ -1,41 +1,36 @@
-import * as dao from "./dao.js";
+import Database from "../Database/index.js"
 
 export default function CourseRoutes(app) {
-  app.get("/api/courses/:id", async (req, res) => {
+  app.get("/api/courses/:id", (req, res) => {
     const {id} = req.params;
-    const course = await dao.findCourseById(id);
+    const course = Database.courses.find((c) => c._id === id);
     if (!course) {
       res.status(404).send("Course not found");
       return;      
     }
-    res.json(course);
+    res.send(course);
   });
-  app.put("/api/courses/:id", async (req, res) => {
+  app.put("/api/courses/:id", (req, res) => {
     const {id} = req.params;
-    const oldCourse = await dao.findCourseById(id);
-    if (!oldCourse) {
-      res.status(400)
-    }
     const course = req.body;
-    await dao.updateCourse(id, course);
+    Database.courses = Database.courses.map((c) => 
+      c._id === id ? {...c, ...course} : c
+    );
     res.sendStatus(204);
   });
-  app.delete("/api/courses/:id", async (req, res) => {
+  app.delete("/api/courses/:id", (req, res) => {
     const {id} = req.params;
-    // Database.courses = Database.courses.filter ((c) => c._id !== id);
-    await dao.deleteCourse(id);
+    Database.courses = Database.courses.filter ((c) => c._id !== id);
     res.sendStatus(204);
   });
-  app.post("/api/courses", async (req, res) => {
-    // const course = {...req.body, 
-    //   _id: new Date().getTime().toString() };
-    // Database.courses.push(course);
-    const course = await dao.createCourse(req.body);
-    res.json(course);
+  app.post("/api/courses", (req, res) => {
+    const course = {...req.body, 
+      _id: new Date().getTime().toString() };
+    Database.courses.push(course);
+    res.send(course);
   });
-  app.get("/api/courses", async (req, res) => {
-    // const courses = Database.courses;
-    const courses = await dao.findAllCourses();
+  app.get("/api/courses", (req, res) => {
+    const courses = Database.courses;
     res.send(courses);
   });
 }
