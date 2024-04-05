@@ -9,6 +9,7 @@ import Lab5 from './Lab5.js';
 import CourseRoutes from './Kanbas/Courses/routes.js';
 import ModuleRoutes from './Kanbas/Modules/routes.js';
 import SessionRoutes from "./SessionRoutes.js";
+import QuizRoutes from "./Kanbas/Quizzes/routes.js";
 
 const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kanbas";
 mongoose.connect(CONNECTION_STRING);
@@ -38,6 +39,7 @@ app.use(session(sessionOptions));
 UserRoutes(app);
 ModuleRoutes(app);
 CourseRoutes(app);
+QuizRoutes(app);
 SessionRoutes(app);
 Lab5(app);
 Hello(app);

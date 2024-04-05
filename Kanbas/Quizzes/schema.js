@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
+const questionSchema = new mongoose.Schema({
+  questionType: String
+});
 const quizSchema = new mongoose.Schema({
+  quizName: String,
+  description: String,
   quizType: {
     type: String,
     enum: ["GRADED QUIZ", "PRACTICE QUIZ", "GRADED SURVEY", "UNGRADED SURVEY"],
@@ -35,7 +40,9 @@ const quizSchema = new mongoose.Schema({
   dueDate: Date,
   availableDate: Date,
   untilDate: Date, 
-  lessons,
+  published: Boolean,
+  course: String,
+  questions: [questionSchema], 
 },
 { collection: "quizzes" })
 export default quizSchema;
