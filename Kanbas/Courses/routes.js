@@ -23,19 +23,14 @@ export default function CourseRoutes(app) {
   });
   app.delete("/api/courses/:id", async (req, res) => {
     const {id} = req.params;
-    // Database.courses = Database.courses.filter ((c) => c._id !== id);
     await dao.deleteCourse(id);
     res.sendStatus(204);
   });
   app.post("/api/courses", async (req, res) => {
-    // const course = {...req.body, 
-    //   _id: new Date().getTime().toString() };
-    // Database.courses.push(course);
     const course = await dao.createCourse(req.body);
     res.json(course);
   });
   app.get("/api/courses", async (req, res) => {
-    // const courses = Database.courses;
     const courses = await dao.findAllCourses();
     res.send(courses);
   });
