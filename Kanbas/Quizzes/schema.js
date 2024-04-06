@@ -1,16 +1,11 @@
 import mongoose from "mongoose";
-const answerSchema = new mongoose.Schema({
-  body: String,
-  correct: Boolean,
-  idx: Number,
-});
 const questionSchema = new mongoose.Schema({
   title: String,
   questionType: String,
   body: String,
   points: Number,
   idx: Number,
-  answers: [answerSchema],
+  answers: [{}],
 });
 const quizSchema = new mongoose.Schema({
   quizName: String,
