@@ -49,6 +49,9 @@ const quizSchema = new mongoose.Schema({
   published: Boolean,
   course: String,
   questions: [questionSchema], 
+  savedAnswers: {
+    type: [Number],
+    default: [],}
 },
 { collection: "quizzes" })
 export default quizSchema;
